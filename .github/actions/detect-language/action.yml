@@ -1,1 +1,23 @@
-# Linux CLI detect repo language
+name: "Detect language"
+description: "Detect language"
+
+outputs:
+  language:
+    description: "Language of the project"
+    value: ${{ steps.detect-language }}
+
+runs:
+  using: "composite"
+  steps:
+  - name: Detect language
+    id: detect-language
+    run: |
+      set -euo pipefail
+
+      if [ -f "pom.xml" ]; then
+        echo "Detected pom.xml → language=java"
+        echo "language=java" >> "$GITHUB_OUTPUT"
+      else
+        echo "No pom.xml found -> khong biet ngon ngu gi lun"
+        echo "language=unknown" >> "$GITHUB_OUTPUT"
+      fi
