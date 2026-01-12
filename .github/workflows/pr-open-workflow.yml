@@ -6,11 +6,11 @@ on:
     inputs:
       java-version:
         description: "Java version"
-        required: true
+        required: false
         type: string
       maven-version:
         description: "Maven version"
-        required: true
+        required: false
         type: string
       project-name:
         description: Your Project name
