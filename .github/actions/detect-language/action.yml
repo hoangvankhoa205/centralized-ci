@@ -4,7 +4,7 @@ description: "Detect language"
 outputs:
   language:
     description: "Language of the project"
-    value: ${{ steps.detect-language }}
+    value: ${{ steps.detect-language.outputs.language }}
 
 runs:
   using: "composite"
