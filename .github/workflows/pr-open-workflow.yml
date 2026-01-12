@@ -24,10 +24,6 @@ on:
         description: The docker image tag
         required: false
         type: string
-      languagee:
-        description: The docker image tag
-        required: false
-        type: choice
         
 
 jobs:
