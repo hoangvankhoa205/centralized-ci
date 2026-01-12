@@ -1,0 +1,29 @@
+name: "Java Maven Build"
+description: "Setup Java and build a Maven project"
+
+inputs:
+  java-version:
+    description: "java version"
+    required: true
+  maven-version:
+    description: "maven version"
+    required: true
+    type: string
+  working-directory:
+    description: "Working Directory"
+    required: false
+    default: "."
+
+runs:
+  using: "composite"
+  steps:
+  - name: Setup Maven Action
+    uses: s4u/setup-maven-action@v1.19.0
+    with:
+      java-version: ${{ inputs.java-version }}
+      maven-version: ${{ inputs.maven-version }}
+  
+  - name: Build with Maven
+    shell: bash
+    working-directory: ${{ inputs.working-directory }}
+    run: mvn -B package

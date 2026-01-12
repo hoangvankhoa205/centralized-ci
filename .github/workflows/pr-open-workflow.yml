@@ -1,0 +1,60 @@
+name: PR Open for Java Application
+run-name: ${{ github.actor }} runned this pipeline
+
+on:
+  workflow_call:
+    inputs:
+      java-version:
+        description: "Java version"
+        required: true
+        type: string
+      maven-version:
+        description: "Maven version"
+        required: true
+        type: string
+      project-name:
+        description: Your Project name
+        required: true
+        type: string
+      service-name:
+        description: Your service name
+        required: true
+        type: string
+      image-tag:
+        description: The docker image tag
+        required: true
+        type: string
+      language:
+        description: The docker image tag
+        required: true
+        type: choice
+        
+
+jobs:
+  pr-open-pipeline:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Clone source code
+        uses: actions/checkout@v5
+      
+      - name: Detect Programming language
+        uses: DOP2025-01/pipeline-cicd-centralized/.github/actions/detect-language@main
+           ->? 
+        if (c#)
+        {
+           - uses:  uses: DOP2025-01/pipeline-cicd-centralized/.github/actions/net-build@main
+        }else(java){
+          - name: Build Java app
+              uses: DOP2025-01/pipeline-cicd-centralized/.github/actions/java-maven-build@main
+              with:
+                java-version: "${{ inputs.java-version }}"
+                maven-version: " ${{ inputs.maven-version }}"
+                working-directory: "."
+        }
+          
+              
+      - name: Build Docker image
+        run: docker build -t ${{ inputs.project-name }}/${{ inputs.service-name }}:${{ inputs.image-tag }} .
+
+      - run: echo "Running unit test"
+      - run: echo "Running Analysis..(debug)..."
