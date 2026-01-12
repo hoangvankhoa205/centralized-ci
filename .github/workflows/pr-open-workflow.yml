@@ -39,7 +39,6 @@ jobs:
 
       - name: Build App
         if: ${{ steps.detect.outputs.language == 'java' }}
-        shell: bash
         uses: hoangvankhoa205/logic/.github.actions/java-maven-build@main
         with:
           java-version: '21'
