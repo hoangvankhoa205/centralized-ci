@@ -11,6 +11,7 @@ runs:
   steps:
   - name: Detect language
     id: detect-language
+    shell: bash
     run: |
       set -euo pipefail
 
